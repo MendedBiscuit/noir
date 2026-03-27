@@ -137,7 +137,7 @@ bindsym $mod+r mode "resize"
 
 # take screenshot
 bindsym Print exec grim ~/pictures/screenshots/$(date +"%Y%m%d_%H%M%S.png")
-bindsym $mod+Print exec grim -g \"$(slurp)" ~/pictures/screenshots/$(date +"%Y%m%d_%H%M%S.png")
+bindsym $mod+shift+P exec grim -g \"$(slurp)" ~/pictures/screenshots/$(date +"%Y%m%d_%H%M%S.png")
 bindsym $mod+Shift+Print exec grim -g \"$(slurp)" - | wl-copy
 
 # dismiss notifications
