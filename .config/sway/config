@@ -79,7 +79,7 @@ bindsym $mod+d exec ~/.bin/work.sh
 bindsym $mod+c exec alacritty --class askclaude -e ~/.local/bin/claude
 
 # noir — local AI assistant (glm4 via ollama, offline)
-bindsym $mod+Ctrl+c exec alacritty --class askclaude -e ~/.bin/local-ai.sh
+bindsym $mod+v exec alacritty --class askclaude -e ~/.bin/local-ai.sh
 
 # keybind cheatsheet
 bindsym $mod+slash exec ~/.bin/cheatsheet.sh
