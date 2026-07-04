@@ -50,6 +50,13 @@ two assistants, one keystroke each:
   opencode: sees images, edits files, runs commands. free, offline, open
   source. `ai` in any shell (`ai chat` for a plain REPL)
 
+## notes
+
+`Super+O` — logseq (open-source obsidian) on a plain-markdown vault at
+`~/Data/personal/notes`: no database, no lock-in, git for sync, and the
+local agent can edit pages directly (`ai` inside the vault). Ships with a
+grayscale `custom.css`, obviously.
+
 ## keys
 
 | key | does |
@@ -58,6 +65,7 @@ two assistants, one keystroke each:
 | `Super+Escape` | quick actions — screenshots, wallpaper, toggles, panels |
 | `Super+D` | work engine |
 | `Super+C` / `Super+V` | claude / local vision agent |
+| `Super+O` | notes — logseq vault |
 | `Super+I` | floating btop dashboard |
 | `Super+/` | keybind cheatsheet, parsed live from the sway config |
 | `Super+Ctrl+/` | the manual — explains all of this in-system |

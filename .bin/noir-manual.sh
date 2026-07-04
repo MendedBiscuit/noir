@@ -4,7 +4,10 @@
 
 set -u
 
-if [ "${1:-}" != "page" ] && [ ! -t 1 ]; then
+# Always spawn the floating pager window. Checking -t 1 here is a trap:
+# sway inherits the login tty, so keybind-spawned processes think they
+# have a terminal and page to the invisible tty1 instead.
+if [ "${1:-}" != "page" ]; then
     exec alacritty --class noir-manual -e "$0" page
 fi
 
@@ -49,6 +52,7 @@ ${W}MENUS & KEYS${R}
   ${G}Super+D${R}             work engine — projects: git · dvc · claude
   ${G}Super+C${R}             claude — cloud AI terminal
   ${G}Super+V${R}             noir — local vision agent (qwen3-vl, offline)
+  ${G}Super+O${R}             notes — logseq vault (plain markdown)
   ${G}Super+I${R}             system dashboard (btop)
   ${G}Super+Slash${R}         keybind cheatsheet (parsed live from config)
   ${G}Super+Ctrl+Slash${R}    this manual
@@ -73,6 +77,13 @@ ${W}AI${R}
     ${G}ai${R}          agent in the current directory
     ${G}ai chat${R}     plain chat with the noir persona
     ${G}ollama run noir 'how do i ...'${R}   headless one-shot
+
+${W}NOTES${R}  ${D}(Super+O)${R}
+  logseq — open-source obsidian. The vault is plain markdown at
+  ~/Data/personal/notes: no database, no lock-in, git for sync
+  (it shows up in the work engine like any repo). The local AI
+  can read and edit pages directly — run ${G}ai${R} inside the vault.
+  Grayscale custom.css included, obviously.
 
 ${W}GAMING${R}
   Native steam + proton-cachyos + gamemode. Launch via quick actions
@@ -100,6 +111,7 @@ ${W}SCRIPTS${R}  ${D}(~/.bin)${R}
   ${G}cheatsheet.sh${R}    live keybind list from the sway config
   ${G}noir-manual.sh${R}   this page
   ${G}local-ai.sh${R}      noir, the offline assistant
+  ${G}notes.sh${R}         logseq on the notes vault
   ${G}game.sh${R}          steam with gamemode + egpu autodetect
   ${G}osd.sh${R}           volume/brightness pop-ups
   ${G}wallpaper.sh${R}     native sway background + cycling

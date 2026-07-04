@@ -22,8 +22,9 @@ if ! ollama list 2>/dev/null | grep -q "^${MODEL%%:*}"; then
     ollama pull "$MODEL" || { echo "pull failed"; read -rsn1; exit 1; }
 fi
 
-# build the noir chat persona once the base model is present
-if ! ollama list 2>/dev/null | grep -q "^noir" && [ -f "$HOME/.config/ollama/noir.Modelfile" ]; then
+# build/rebuild the noir persona — also when it's still based on an old model
+if [ -f "$HOME/.config/ollama/noir.Modelfile" ] && ! ollama show noir 2>/dev/null | grep -qi qwen; then
+    echo "building the noir persona from $MODEL ..."
     ollama create noir -f "$HOME/.config/ollama/noir.Modelfile"
 fi
 

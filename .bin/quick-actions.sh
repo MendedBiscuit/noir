@@ -16,6 +16,7 @@ choice=$(printf '%s\n' \
     "󰓓  steam (gamemode + egpu-aware)" \
     "󱜙  ask claude" \
     "󰚩  noir — local ai (offline)" \
+    "󰠮  notes (logseq)" \
     "󱜙  explain clipboard (AI)" \
     "󰄨  system dashboard" \
     "󰌌  keybind cheatsheet" \
@@ -35,6 +36,7 @@ case "${choice:-}" in
     *"steam"*)              ~/.bin/game.sh & disown ;;
     *"ask claude"*)         alacritty --class askclaude -e "$HOME/.local/bin/claude" & disown ;;
     *"noir — local ai"*)    alacritty --class askclaude -e ~/.bin/local-ai.sh & disown ;;
+    *"notes"*)              ~/.bin/notes.sh & disown ;;
     *"explain clipboard"*)  alacritty --class float-tui --title "claude · clipboard" -e bash -c \
                                 "wl-paste | \"$HOME/.local/bin/claude\" -p 'Explain this concisely:' ; printf '\n\033[90m── done · any key ──\033[0m'; read -rsn1" & disown ;;
     *"system dashboard"*)   ~/.bin/sysdash.sh ;;
