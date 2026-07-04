@@ -24,5 +24,6 @@ source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 
 alias work='sudo ~/.bin/focus_mode.sh work'
 alias night='~/.bin/bluelight_mode.sh'
+alias ai='~/.bin/local-ai.sh'
 
 export PATH="$HOME/.local/bin:$PATH"

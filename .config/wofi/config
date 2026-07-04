@@ -1,0 +1,10 @@
+width=560
+height=340
+prompt=run
+insensitive=true
+matching=fuzzy
+allow_images=true
+image_size=22
+hide_scroll=true
+no_actions=true
+key_expand=Tab

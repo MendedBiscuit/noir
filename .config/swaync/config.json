@@ -1,0 +1,85 @@
+{
+    "$schema": "/etc/xdg/swaync/configSchema.json",
+    "positionX": "right",
+    "positionY": "top",
+    "layer": "overlay",
+    "control-center-layer": "overlay",
+    "control-center-width": 400,
+    "control-center-margin-top": 10,
+    "control-center-margin-right": 10,
+    "control-center-margin-bottom": 10,
+    "notification-window-width": 380,
+    "notification-icon-size": 48,
+    "notification-body-image-height": 120,
+    "notification-body-image-width": 220,
+    "timeout": 6,
+    "timeout-low": 3,
+    "timeout-critical": 0,
+    "keyboard-shortcuts": true,
+    "hide-on-clear": true,
+    "hide-on-action": true,
+    "script-fail-notify": false,
+    "widgets": [
+        "inhibitors",
+        "dnd",
+        "mpris",
+        "volume",
+        "backlight",
+        "buttons-grid",
+        "title",
+        "notifications"
+    ],
+    "widget-config": {
+        "inhibitors": {
+            "text": "Inhibitors",
+            "button-text": "Clear",
+            "clear-all-button": true
+        },
+        "dnd": {
+            "text": "Do not disturb"
+        },
+        "mpris": {
+            "image-size": 96,
+            "image-radius": 10
+        },
+        "volume": {
+            "label": "󰕾"
+        },
+        "backlight": {
+            "label": "󰃟"
+        },
+        "buttons-grid": {
+            "actions": [
+                {
+                    "label": "󰤨",
+                    "command": "sh -c '[ \"$(nmcli radio wifi)\" = \"enabled\" ] && nmcli radio wifi off || nmcli radio wifi on'"
+                },
+                {
+                    "label": "󰂯",
+                    "command": "sh -c 'bluetoothctl show | grep -q \"Powered: yes\" && bluetoothctl power off || bluetoothctl power on'"
+                },
+                {
+                    "label": "󰌵",
+                    "command": "/home/julian/.bin/bluelight_mode.sh"
+                },
+                {
+                    "label": "󰸉",
+                    "command": "/home/julian/.bin/wallpaper.sh next"
+                },
+                {
+                    "label": "",
+                    "command": "swaylock -f"
+                },
+                {
+                    "label": "󰐥",
+                    "command": "/home/julian/.bin/power-menu.sh"
+                }
+            ]
+        },
+        "title": {
+            "text": "Notifications",
+            "clear-all-button": true,
+            "button-text": "Clear"
+        }
+    }
+}

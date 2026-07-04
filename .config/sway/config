@@ -1,4 +1,9 @@
-# sway config file
+# ┌──────────────────────────────────────────┐
+# │  sway · noir                             │
+# │  $mod+slash — searchable keybind list    │
+# └──────────────────────────────────────────┘
+
+# ── variables ────────────────────────────────────────────────
 
 # set leader key (Mod4 logo key, Mod1 for Alt)
 set $mod Mod4
@@ -12,49 +17,86 @@ set $menu wofi --show drun -i | xargs swaymsg exec --
 set $browser firefox
 set $files dolphin
 
-# set color scheme
+# ── appearance ───────────────────────────────────────────────
+
 include ~/.config/sway/colorscheme
 
-# idle management
+font pango:Noto Sans 10
+default_border pixel 2
+smart_borders on
+gaps inner 8
+smart_gaps on
+
+seat * xcursor_theme capitaine-cursors 24
+
+# ── idle & lock ──────────────────────────────────────────────
 
 exec swayidle -w \
-         timeout 600 'swaylock -f -c 000000' \
+         timeout 600 'swaylock -f' \
          timeout 605 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \
          timeout 610 'systemctl suspend' \
-         before-sleep 'swaylock -f -c 000000' \
-         after-resume 'swaymsg "output * dpms on"; pkill waybar; waybar & sleep 0.5 && bash ~/.bin/bg-init.sh'
+         before-sleep 'swaylock -f' \
+         after-resume 'swaymsg "output * dpms on"; pkill waybar; waybar & disown'
 
+# force displays back on
 bindsym $mod+Shift+w output * dpms on
-bindsym $mod+l exec swaylock -f -c 000000
 
-# start a terminal
+# lock screen
+bindsym $mod+l exec swaylock -f
+
+# don't lock/suspend while something is fullscreen (video etc.)
+for_window [app_id=".*"] inhibit_idle fullscreen
+for_window [class=".*"] inhibit_idle fullscreen
+
+# ── apps & menus ─────────────────────────────────────────────
+
+# open terminal
 bindsym $mod+Return exec $term
 
-# kill focused window
-bindsym $mod+q kill
-
-# start your launcher
+# open app launcher
 bindsym $mod+space exec $menu
 
 # open browser
 bindsym $mod+w exec $browser
 
+# open file manager
 bindsym $mod+e exec $files
+
+# quick actions menu (screenshots, wallpaper, toggles, ...)
+bindsym $mod+Escape exec ~/.bin/quick-actions.sh
+
+# power menu (lock / suspend / logout / reboot / poweroff)
+bindsym $mod+Shift+e exec ~/.bin/power-menu.sh
+
+# floating system dashboard (btop)
+bindsym $mod+i exec ~/.bin/sysdash.sh
+
+# work engine (projects: git / dvc / claude / mcp)
+bindsym $mod+d exec ~/.bin/work.sh
+
+# claude, floating AI terminal
+bindsym $mod+c exec alacritty --class askclaude -e ~/.local/bin/claude
+
+# noir — local AI assistant (glm4 via ollama, offline)
+bindsym $mod+Shift+c exec alacritty --class askclaude -e ~/.bin/local-ai.sh
+
+# keybind cheatsheet
+bindsym $mod+slash exec ~/.bin/cheatsheet.sh
+
+# noir manual (theme guide)
+bindsym $mod+Ctrl+slash exec ~/.bin/noir-manual.sh
+
+# ── windows ──────────────────────────────────────────────────
+
+# kill focused window
+bindsym $mod+q kill
 
 # move (non-)floating windows with $mod+left/right mouse button
 floating_modifier $mod normal
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-
-# exit sway
-bindsym $mod+Shift+e exec swaynag \
-    -t warning \
-    -m 'What do you want to do?' \
-    -b 'Logout' 'swaymsg exit' \
-    -b 'Poweroff' 'systemctl poweroff' \
-    -b 'Reboot' 'systemctl reboot'
 
 # move focus around with arrow keys
 bindsym $mod+Left focus left
@@ -67,6 +109,8 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+# ── workspaces ───────────────────────────────────────────────
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -92,13 +136,21 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# change "split" mode
+# ── layout ───────────────────────────────────────────────────
+
+# split vertically
 bindsym $mod+z splitv
+
+# split horizontally
 bindsym $mod+x splith
 
-# switch current container between different layout styles
+# layout: stacking
 bindsym $mod+g layout stacking
+
+# layout: tabbed
 bindsym $mod+h layout tabbed
+
+# layout: toggle split
 bindsym $mod+j layout toggle split
 
 # make the current focus fullscreen
@@ -113,15 +165,13 @@ bindsym $mod+s focus mode_toggle
 # move focus to parent container
 bindsym $mod+a focus parent
 
-# Note: Sway has a "scratchpad", which is a bag of holding for windows. You
-# can send windows there and them back later.
 # move focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
 # show next scratchpad or hide focussed scratchpad window
 bindsym $mod+minus scratchpad show
 
-# resize containers
+# resize mode
 mode "resize" {
     # shrink/grow height/width
     bindsym Left resize shrink width 40px
@@ -135,39 +185,69 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# take screenshot
+# ── window rules ─────────────────────────────────────────────
+
+for_window [app_id="sysdash"] floating enable, resize set 1100 720, move position center
+for_window [app_id="float-tui"] floating enable, resize set 900 620, move position center
+for_window [app_id="askclaude"] floating enable, resize set 1050 740, move position center
+for_window [app_id="noir-manual"] floating enable, resize set 940 760, move position center
+for_window [app_id="blueman-manager"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+
+# steam: float the noisy side windows, keep games tiled/fullscreen
+for_window [class="steam" title="Friends List"] floating enable
+for_window [class="steam" title="Special Offers"] floating enable
+for_window [class="steam" title="Steam Settings"] floating enable
+
+# ── screenshots ──────────────────────────────────────────────
+
+# screenshot: full screen -> file
 bindsym Print exec grim ~/pictures/screenshots/$(date +"%Y%m%d_%H%M%S.png")
-bindsym $mod+shift+P exec grim -g \"$(slurp)" ~/pictures/screenshots/$(date +"%Y%m%d_%H%M%S.png")
+
+# screenshot: region -> file
+bindsym $mod+Shift+p exec grim -g \"$(slurp)" ~/pictures/screenshots/$(date +"%Y%m%d_%H%M%S.png")
+
+# screenshot: region -> clipboard
 bindsym $mod+Shift+Print exec grim -g \"$(slurp)" - | wl-copy
 
-# dismiss notifications
+# ── notifications ────────────────────────────────────────────
+
+# dismiss latest notification
 bindsym $mod+n exec swaync-client --close-latest
+
+# dismiss all notifications
 bindsym $mod+Shift+n exec swaync-client --close-all
-# open notification sidebar
+
+# open control center (toggles, sliders, notifications)
 bindsym $mod+Ctrl+n exec swaync-client -t
 
-#toggle bluelight mode
+# ── media & hardware keys ────────────────────────────────────
+
+# toggle bluelight mode
 bindsym $mod+b exec ~/.bin/bluelight_mode.sh
 
-# special key bindings
-bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-# appearance
-smart_borders on
-default_border pixel 1
+# next wallpaper
+bindsym $mod+Shift+b exec ~/.bin/wallpaper.sh next
 
-# steam res fix
+bindsym XF86AudioRaiseVolume exec ~/.bin/osd.sh vol-up
+bindsym XF86AudioLowerVolume exec ~/.bin/osd.sh vol-down
+bindsym XF86AudioMute exec ~/.bin/osd.sh vol-mute
+bindsym XF86AudioMicMute exec ~/.bin/osd.sh mic-mute
+bindsym XF86MonBrightnessUp exec ~/.bin/osd.sh bright-up
+bindsym XF86MonBrightnessDown exec ~/.bin/osd.sh bright-down
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
+# ── autostart ────────────────────────────────────────────────
 
-# autostart udiskie
 exec udiskie &
 
-#ensure bg daemon doesnt break. TODO: bg does not reappear after sleeping
-exec_always "pkill waybar; waybar & sleep 0.5 && bash ~/.bin/bg-init.sh"
+# polkit auth agent — lets GUI apps request admin rights
+exec /usr/lib/polkit-kde-authentication-agent-1
+
+exec_always "pkill waybar; waybar & sleep 0.5 && bash ~/.bin/wallpaper.sh restore"
 
 exec_always "echo enabled | sudo tee /sys/bus/usb/devices/7-1/power/wakeup"
 

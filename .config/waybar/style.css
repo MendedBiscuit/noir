@@ -1,31 +1,190 @@
+/* ── waybar · noir ─────────────────────────────────────────
+   monochrome glass: black bar, hairline pills, white accents */
+
 * {
-font-family: "Inter", "Font Awesome 6 Free";
-font-size: 11pt;
-border: none;
-border-radius: 0;
+    font-family: "Noto Sans", "FiraCode Nerd Font", "Noto Sans CJK JP", sans-serif;
+    font-size: 11pt;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.68);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     color: #ffffff;
 }
 
+tooltip {
+    background-color: rgba(0, 0, 0, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+}
+
+tooltip label {
+    color: #b3b3b3;
+    padding: 2px;
+}
+
+/* ── left ── */
+
 #workspaces button {
-padding: 0 10px;
-background-color: transparent;
-color: #808080;
+    padding: 0 10px;
+    margin: 4px 1px;
+    background-color: transparent;
+    color: #6e6e6e;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+    color: #b3b3b3;
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 #workspaces button.focused {
-color: #ffffff;
-border-bottom: 2px solid #ffffff;
+    color: #000000;
+    background-color: #e6e6e6;
+    font-weight: bold;
 }
 
 #workspaces button.urgent {
-color: #000000;
-background-color: #ea51b2;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid #ffffff;
 }
 
-#custom-media, #cpu, #memory, #custom-network, #pulseaudio, #battery, #custom-clock {
-padding: 0 3px;
+#mode {
+    margin: 4px 6px;
+    padding: 0 12px;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* ── center ── */
+
+#mpris {
+    margin: 4px 0;
+    padding: 0 14px;
+    color: #808080;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#mpris:hover {
+    color: #b3b3b3;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+#mpris.paused {
+    color: #5a5a5a;
+}
+
+/* ── right: hairline pills ── */
+
+#tray,
+#pulseaudio,
+#backlight,
+#network,
+#bluetooth,
+#cpu,
+#memory,
+#battery,
+#clock,
+#custom-notifications {
+    margin: 4px 2px;
+    padding: 0 11px;
+    color: #9a9a9a;
+    background-color: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#tray:hover,
+#pulseaudio:hover,
+#backlight:hover,
+#network:hover,
+#bluetooth:hover,
+#cpu:hover,
+#memory:hover,
+#battery:hover,
+#clock:hover,
+#custom-notifications:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* states */
+
+#pulseaudio.muted {
+    color: #5a5a5a;
+}
+
+#network.disconnected {
+    color: #5a5a5a;
+}
+
+#bluetooth.disabled {
+    color: #5a5a5a;
+}
+
+#bluetooth.connected {
+    color: #e6e6e6;
+}
+
+#cpu.warning {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+@keyframes blink-critical {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#cpu.critical {
+    color: #ffffff;
+    animation-name: blink-critical;
+    animation-duration: 1s;
+    animation-timing-function: steps(6);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery.charging {
+    color: #e6e6e6;
+    border-color: rgba(255, 255, 255, 0.30);
+}
+
+#battery.warning:not(.charging) {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+#battery.critical:not(.charging) {
+    color: #ffffff;
+    animation-name: blink-critical;
+    animation-duration: 1s;
+    animation-timing-function: steps(6);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#clock {
+    color: #ffffff;
+    font-weight: bold;
+    margin-left: 6px;
+}
+
+#custom-notifications {
+    padding: 0 12px;
+    margin-right: 6px;
 }

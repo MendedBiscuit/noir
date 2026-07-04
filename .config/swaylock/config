@@ -1,11 +1,18 @@
-# Noir Theme for Swaylock
+# ── swaylock · noir ──
 image=~/.config/sway/assets/3blur.jpg
 scaling=fill
+
+font=Noto Sans
+indicator-radius=110
+indicator-thickness=8
+indicator-caps-lock
+show-failed-attempts
 
 inside-color=000000B3
 line-color=00000000
 ring-color=ffffff
 text-color=ffffff
+separator-color=00000000
 
 layout-bg-color=00000000
 layout-text-color=ffffff
@@ -20,11 +27,11 @@ line-ver-color=00000000
 ring-ver-color=888888
 text-ver-color=ffffff
 
-inside-wrong-color=440000
+inside-wrong-color=1a1a1a
 line-wrong-color=00000000
-ring-wrong-color=ff0000
+ring-wrong-color=4d4d4d
 text-wrong-color=ffffff
 
 # Highlights
-bs-hl-color=ff0000
-key-hl-color=888888
+bs-hl-color=808080
+key-hl-color=ffffff

@@ -1,0 +1,39 @@
+// ── fastfetch · noir ──
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "small",
+        "color": {
+            "1": "white"
+        },
+        "padding": {
+            "top": 1,
+            "left": 2,
+            "right": 4
+        }
+    },
+    "display": {
+        "separator": "  ",
+        "color": {
+            "keys": "white",
+            "output": "default"
+        }
+    },
+    "modules": [
+        "break",
+        { "type": "os", "key": "os    " },
+        { "type": "kernel", "key": "kernel" },
+        { "type": "wm", "key": "wm    " },
+        { "type": "shell", "key": "shell " },
+        { "type": "terminal", "key": "term  " },
+        "break",
+        { "type": "cpu", "key": "cpu   " },
+        { "type": "gpu", "key": "gpu   " },
+        { "type": "memory", "key": "mem   " },
+        { "type": "disk", "key": "disk  " },
+        "break",
+        { "type": "packages", "key": "pkgs  " },
+        { "type": "uptime", "key": "up    " },
+        "break"
+    ]
+}
