@@ -48,7 +48,7 @@ ${W}MENUS & KEYS${R}
   ${G}Super+Escape${R}        quick actions — screenshots, toggles, panels
   ${G}Super+D${R}             work engine — projects: git · dvc · claude
   ${G}Super+C${R}             claude — cloud AI terminal
-  ${G}Super+Shift+C${R}       noir — local AI (glm4 via ollama, offline)
+  ${G}Super+Ctrl+C${R}        noir — local AI (glm4 via ollama, offline)
   ${G}Super+I${R}             system dashboard (btop)
   ${G}Super+Slash${R}         keybind cheatsheet (parsed live from config)
   ${G}Super+Ctrl+Slash${R}    this manual
@@ -67,7 +67,7 @@ ${W}WORK ENGINE${R}  ${D}(Super+D)${R}
 
 ${W}AI${R}
   ${G}claude${R} (Super+C) for the heavy, multimodal, agentic work — cloud.
-  ${G}noir${R} (Super+Shift+C) for the everyday: a glm4 model running
+  ${G}noir${R} (Super+Ctrl+C) for the everyday: a glm4 model running
   locally through ollama, prompted with this machine's specifics.
   Free, offline, open source. Also in quick actions, and headless:
     ${G}ollama run noir 'how do i ...'${R}
