@@ -51,7 +51,8 @@ ${W}MENUS & KEYS${R}
   ${G}Super+Escape${R}        quick actions — screenshots, toggles, panels
   ${G}Super+D${R}             work engine — projects: git · dvc · claude
   ${G}Super+C${R}             claude — cloud AI terminal
-  ${G}Super+V${R}             noir — local vision agent (qwen3-vl, offline)
+  ${G}Super+V${R}             noir — local agent (edits files, runs commands)
+  ${G}Super+Shift+V${R}       noir — local chat (fast, no tools)
   ${G}Super+O${R}             notes — logseq vault (plain markdown)
   ${G}Super+I${R}             system dashboard (btop)
   ${G}Super+Slash${R}         keybind cheatsheet (parsed live from config)

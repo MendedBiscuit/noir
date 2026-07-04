@@ -65,6 +65,7 @@ grayscale `custom.css`, obviously.
 | `Super+Escape` | quick actions — screenshots, wallpaper, toggles, panels |
 | `Super+D` | work engine |
 | `Super+C` / `Super+V` | claude / local vision agent |
+| `Super+Shift+V` | local chat — fast, no tools |
 | `Super+O` | notes — logseq vault |
 | `Super+I` | floating btop dashboard |
 | `Super+/` | keybind cheatsheet, parsed live from the sway config |

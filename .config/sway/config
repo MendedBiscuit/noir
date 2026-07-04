@@ -81,6 +81,9 @@ bindsym $mod+c exec alacritty --class askclaude -e ~/.local/bin/claude
 # noir — local AI agent (qwen3-vl via ollama + opencode, offline)
 bindsym $mod+v exec alacritty --class askclaude -e ~/.bin/local-ai.sh
 
+# noir — local AI chat (fast, no tools)
+bindsym $mod+Shift+v exec alacritty --class askclaude -e ~/.bin/local-ai.sh chat
+
 # notes — logseq vault (open-source obsidian)
 bindsym $mod+o exec ~/.bin/notes.sh
 
