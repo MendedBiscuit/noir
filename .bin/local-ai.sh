@@ -19,8 +19,13 @@ model="glm4:9b"
 ollama list 2>/dev/null | grep -q "^noir" && model="noir"
 
 if ! ollama list 2>/dev/null | grep -qE "^(noir|glm4)"; then
-    echo "no model yet — pulling glm4:9b (~5.5 GB, one-time)"
+    echo "no model yet — pulling glm4:9b (~5.5 GB, resumes if interrupted)"
     ollama pull glm4:9b || { echo "pull failed"; read -rsn1; exit 1; }
+fi
+
+# build the noir persona once glm4 is present
+if ! ollama list 2>/dev/null | grep -q "^noir" && [ -f "$HOME/.config/ollama/noir.Modelfile" ]; then
+    ollama create noir -f "$HOME/.config/ollama/noir.Modelfile" && model="noir"
 fi
 
 exec ollama run "$model" "$@"
