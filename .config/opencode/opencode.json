@@ -8,11 +8,11 @@
                 "baseURL": "http://localhost:11434/v1"
             },
             "models": {
-                "qwen3-vl:8b": {
-                    "name": "qwen3-vl 8b — local vision agent"
+                "noir-agent": {
+                    "name": "noir agent — qwen3-vl 8b, 16k ctx"
                 }
             }
         }
     },
-    "model": "ollama/qwen3-vl:8b"
+    "model": "ollama/noir-agent"
 }

@@ -1,0 +1,5 @@
+# agent-mode base for opencode — no persona (opencode brings its own system
+# prompt), just a context window big enough to hold it. ollama's default
+# num_ctx of 4096 truncates agent prompts and the model loops forever.
+FROM qwen3-vl:8b
+PARAMETER num_ctx 16384

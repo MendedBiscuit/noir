@@ -28,6 +28,12 @@ if [ -f "$HOME/.config/ollama/noir.Modelfile" ] && ! ollama show noir 2>/dev/nul
     ollama create noir -f "$HOME/.config/ollama/noir.Modelfile"
 fi
 
+# agent base for opencode: 16k context (default 4096 truncates agent prompts)
+if [ -f "$HOME/.config/ollama/noir-agent.Modelfile" ] && ! ollama list 2>/dev/null | grep -q "^noir-agent"; then
+    echo "building noir-agent (16k ctx) ..."
+    ollama create noir-agent -f "$HOME/.config/ollama/noir-agent.Modelfile"
+fi
+
 if [ "${1:-}" = "chat" ]; then
     shift
     exec ollama run noir "$@"
