@@ -48,7 +48,7 @@ ${W}MENUS & KEYS${R}
   ${G}Super+Escape${R}        quick actions — screenshots, toggles, panels
   ${G}Super+D${R}             work engine — projects: git · dvc · claude
   ${G}Super+C${R}             claude — cloud AI terminal
-  ${G}Super+V${R}             noir — local AI (glm4 via ollama, offline)
+  ${G}Super+V${R}             noir — local vision agent (qwen3-vl, offline)
   ${G}Super+I${R}             system dashboard (btop)
   ${G}Super+Slash${R}         keybind cheatsheet (parsed live from config)
   ${G}Super+Ctrl+Slash${R}    this manual
@@ -66,11 +66,13 @@ ${W}WORK ENGINE${R}  ${D}(Super+D)${R}
   'mcp servers' at the top shows claude mcp list.
 
 ${W}AI${R}
-  ${G}claude${R} (Super+C) for the heavy, multimodal, agentic work — cloud.
-  ${G}noir${R} (Super+V) for the everyday: a glm4 model running
-  locally through ollama, prompted with this machine's specifics.
-  Free, offline, open source. Also in quick actions, and headless:
-    ${G}ollama run noir 'how do i ...'${R}
+  ${G}claude${R} (Super+C) for the heavy, frontier-grade agentic work — cloud.
+  ${G}noir${R} (Super+V) for the everyday, fully offline: qwen3-vl:8b via
+  ollama, driven by opencode — it sees images, edits files and runs
+  commands (with confirmation). Free and open source.
+    ${G}ai${R}          agent in the current directory
+    ${G}ai chat${R}     plain chat with the noir persona
+    ${G}ollama run noir 'how do i ...'${R}   headless one-shot
 
 ${W}GAMING${R}
   Native steam + proton-cachyos + gamemode. Launch via quick actions

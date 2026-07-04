@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-# noir local assistant — GLM via ollama. Offline, free, open source.
-# Runs the "noir" model (glm4 + machine-aware system prompt) as a chat REPL.
+# noir local AI — qwen3-vl via ollama. Offline, free, open source.
+#   local-ai.sh          agent mode: opencode — edits files, runs commands
+#   local-ai.sh chat     plain chat REPL with the noir persona
 
 set -u
+
+MODEL="qwen3-vl:8b"
 
 if ! command -v ollama >/dev/null 2>&1; then
     echo "ollama is not installed (sudo pacman -S ollama)"; read -rsn1; exit 1
@@ -14,18 +17,24 @@ if ! systemctl is-active --quiet ollama; then
     read -rsn1; exit 1
 fi
 
-# prefer the noir persona, fall back to plain glm4
-model="glm4:9b"
-ollama list 2>/dev/null | grep -q "^noir" && model="noir"
-
-if ! ollama list 2>/dev/null | grep -qE "^(noir|glm4)"; then
-    echo "no model yet — pulling glm4:9b (~5.5 GB, resumes if interrupted)"
-    ollama pull glm4:9b || { echo "pull failed"; read -rsn1; exit 1; }
+if ! ollama list 2>/dev/null | grep -q "^${MODEL%%:*}"; then
+    echo "no model yet — pulling $MODEL (~6.1 GB, resumes if interrupted)"
+    ollama pull "$MODEL" || { echo "pull failed"; read -rsn1; exit 1; }
 fi
 
-# build the noir persona once glm4 is present
+# build the noir chat persona once the base model is present
 if ! ollama list 2>/dev/null | grep -q "^noir" && [ -f "$HOME/.config/ollama/noir.Modelfile" ]; then
-    ollama create noir -f "$HOME/.config/ollama/noir.Modelfile" && model="noir"
+    ollama create noir -f "$HOME/.config/ollama/noir.Modelfile"
 fi
 
-exec ollama run "$model" "$@"
+if [ "${1:-}" = "chat" ]; then
+    shift
+    exec ollama run noir "$@"
+fi
+
+if command -v opencode >/dev/null 2>&1; then
+    exec opencode "$@"
+else
+    echo "opencode not installed (sudo pacman -S opencode) — falling back to chat"
+    exec ollama run noir "$@"
+fi

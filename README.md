@@ -45,9 +45,10 @@ contrast, spacing, transparency and motion do the work that color usually does.
 
 two assistants, one keystroke each:
 
-- **claude** (`Super+C`) — cloud, for the heavy multimodal/agentic work
-- **noir** (`Super+Ctrl+C`) — glm4 running locally through ollama with a
-  machine-aware system prompt. free, offline, open source. also: `ai` in any shell
+- **claude** (`Super+C`) — cloud, for the heavy frontier-grade agentic work
+- **noir** (`Super+V`) — qwen3-vl running locally through ollama, driven by
+  opencode: sees images, edits files, runs commands. free, offline, open
+  source. `ai` in any shell (`ai chat` for a plain REPL)
 
 ## keys
 
@@ -56,7 +57,7 @@ two assistants, one keystroke each:
 | `Super+Space` | launcher |
 | `Super+Escape` | quick actions — screenshots, wallpaper, toggles, panels |
 | `Super+D` | work engine |
-| `Super+C` / `Super+Ctrl+C` | claude / local ai |
+| `Super+C` / `Super+V` | claude / local vision agent |
 | `Super+I` | floating btop dashboard |
 | `Super+/` | keybind cheatsheet, parsed live from the sway config |
 | `Super+Ctrl+/` | the manual — explains all of this in-system |
