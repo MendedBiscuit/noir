@@ -9,8 +9,6 @@
 
 set -u
 
-DIR="$HOME/.config/sway/assets"
-STATE="${XDG_RUNTIME_DIR:-/tmp}/noir-wallpaper"
 OFF_FLAG="$HOME/.config/noir/hud-off"
 OUT="${XDG_RUNTIME_DIR:-/tmp}/noir-hud.png"
 FONT="/usr/share/fonts/TTF/MesloLGLDZNerdFontMono-Regular.ttf"
@@ -25,7 +23,7 @@ if [ -z "${SWAYSOCK:-}" ]; then
     export SWAYSOCK
 fi
 
-base() { [ -f "$STATE" ] && cat "$STATE" || echo "$DIR/3.jpg"; }
+base() { "$HOME/.bin/wallpaper.sh" current; }   # wallpaper.sh owns the state
 
 apply_plain() { swaymsg "output * bg '$(base)' fill" >/dev/null; }
 
@@ -67,7 +65,7 @@ render() {
         -draw "fill rgba(10,10,10,0.80) roundrectangle 0,0,$((TW-1)),$((TH-1)),18,18" \
         "$tmp/text.png" -composite "$tmp/panel.png"
     magick "$(base)" -resize "${W}x${H}^" -gravity center -extent "${W}x${H}" \
-        "$tmp/panel.png" -gravity northeast -geometry +56+72 -composite \
+        "$tmp/panel.png" -gravity southwest -geometry +56+72 -composite \
         "$OUT.tmp.png" && mv "$OUT.tmp.png" "$OUT"
 
     swaymsg "output * bg '$OUT' fill" >/dev/null

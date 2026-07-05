@@ -1,5 +1,6 @@
 /* ── swaync · noir ─────────────────────────────────────────
-   notifications + control center in black glass */
+   notifications + control center in black glass.
+   one color: sodium amber #e8a032 (matches the hud + logseq) */
 
 * {
     font-family: "Noto Sans", "FiraCode Nerd Font", sans-serif;
@@ -43,6 +44,22 @@
 
 .notification-content .body-image {
     border-radius: 8px;
+}
+
+/* value bar (volume/brightness osd) — amber, not gtk default blue */
+.notification-content progressbar {
+    background: rgba(255, 255, 255, 0.10);
+    border: none;
+    border-radius: 999px;
+    min-height: 6px;
+    margin-top: 6px;
+}
+
+.notification-content progressbar progress,
+.notification-content progressbar trough progress {
+    background: #e8a032;
+    border-radius: 999px;
+    min-height: 6px;
 }
 
 .notification.critical {
@@ -141,7 +158,7 @@
 }
 
 .widget-dnd > switch:checked {
-    background: #e6e6e6;
+    background: #e8a032;
 }
 
 .widget-dnd > switch slider {
@@ -226,7 +243,7 @@
 
 .widget-volume scale highlight,
 .widget-backlight scale highlight {
-    background: #e6e6e6;
+    background: #e8a032;
     border-radius: 999px;
 }
 

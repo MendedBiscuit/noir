@@ -65,10 +65,10 @@ window {
 }
 
 #entry:selected {
-    background-color: rgba(255, 255, 255, 0.12);
+    background-color: rgba(232, 160, 50, 0.14);
 }
 
 #text:selected {
-    color: #ffffff;
+    color: #e8a032;
     font-weight: bold;
 }

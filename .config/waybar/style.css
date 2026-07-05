@@ -1,5 +1,6 @@
 /* ── waybar · noir ─────────────────────────────────────────
-   monochrome glass: black bar, hairline pills, white accents */
+   monochrome glass: black bar, hairline pills.
+   one color: sodium amber #e8a032 on whatever is "on" */
 
 * {
     font-family: "Noto Sans", "FiraCode Nerd Font", "Noto Sans CJK JP", sans-serif;
@@ -44,7 +45,7 @@ tooltip label {
 
 #workspaces button.focused {
     color: #000000;
-    background-color: #e6e6e6;
+    background-color: #e8a032;
     font-weight: bold;
 }
 
@@ -57,7 +58,7 @@ tooltip label {
 #mode {
     margin: 4px 6px;
     padding: 0 12px;
-    background-color: #ffffff;
+    background-color: #e8a032;
     color: #000000;
     border-radius: 8px;
     font-weight: bold;
@@ -135,7 +136,7 @@ tooltip label {
 }
 
 #bluetooth.connected {
-    color: #e6e6e6;
+    color: #e8a032;
 }
 
 #cpu.warning {
@@ -160,8 +161,8 @@ tooltip label {
 }
 
 #battery.charging {
-    color: #e6e6e6;
-    border-color: rgba(255, 255, 255, 0.30);
+    color: #e8a032;
+    border-color: rgba(232, 160, 50, 0.35);
 }
 
 #battery.warning:not(.charging) {

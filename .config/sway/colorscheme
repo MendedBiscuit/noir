@@ -1,5 +1,6 @@
-# Author: Gemini (Matching grayscale sand ripples background)
+# grayscale to match the sand ripples + one accent: sodium amber
 
+set $accent #e8a032
 set $base00 #000000
 set $base01 #1a1a1a
 set $base02 #333333
@@ -19,7 +20,7 @@ set $base0F #f2f2f2
 
 # Window Borders and Colors
 # Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $base07 $base01 $base07 $base07 $base07
+client.focused          $accent $base01 $base07 $accent $accent
 client.focused_inactive $base02 $base01 $base05 $base02 $base02
 client.unfocused        $base01 $base00 $base04 $base01 $base01
 client.urgent           $base08 $base08 $base07 $base08 $base08

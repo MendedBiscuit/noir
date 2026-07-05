@@ -2,6 +2,7 @@
 # Wallpaper via sway's native background — no daemon, survives reload/suspend.
 #   wallpaper.sh restore   re-apply the current wallpaper (run on every reload)
 #   wallpaper.sh next      cycle to the next wallpaper
+#   wallpaper.sh current   print the current wallpaper path (hud.sh reads this)
 # (reset is kept as an alias of restore for old callers)
 
 set -u
@@ -42,8 +43,11 @@ case "${1:-restore}" in
         echo "$next" > "$STATE"   # before apply — the hud reads the state file
         apply "$next"
         ;;
+    current)
+        current
+        ;;
     *)
-        echo "usage: wallpaper.sh restore|next" >&2
+        echo "usage: wallpaper.sh restore|next|current" >&2
         exit 1
         ;;
 esac
