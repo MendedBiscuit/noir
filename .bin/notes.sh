@@ -11,5 +11,8 @@ if ! command -v logseq >/dev/null 2>&1; then
         printf "\nany key to close"; read -rsn1'
 fi
 
-# native wayland — the display runs at scale 2, xwayland would be blurry
-exec logseq --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations
+# native wayland — the display runs at scale 2, xwayland would be blurry.
+# GTK_THEME + --force-dark-mode: electron can't see prefer-dark through the
+# portal on sway, so logseq's "system" theme resolves light without these.
+export GTK_THEME=Adwaita:dark
+exec logseq --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations --force-dark-mode "$@"

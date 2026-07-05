@@ -87,6 +87,9 @@ bindsym $mod+Shift+v exec alacritty --class askclaude -e ~/.bin/local-ai.sh chat
 # notes — logseq vault (open-source obsidian)
 bindsym $mod+o exec ~/.bin/notes.sh
 
+# capture — one thought into the vault inbox
+bindsym $mod+n exec ~/.bin/capture.sh
+
 # keybind cheatsheet
 bindsym $mod+slash exec ~/.bin/cheatsheet.sh
 
