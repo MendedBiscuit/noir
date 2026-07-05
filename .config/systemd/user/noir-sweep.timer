@@ -1,0 +1,9 @@
+[Unit]
+Description=sunday sweep at 17:00 (catches up after wake)
+
+[Timer]
+OnCalendar=Sun *-*-* 17:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

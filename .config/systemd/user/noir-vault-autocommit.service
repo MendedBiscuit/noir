@@ -1,0 +1,6 @@
+[Unit]
+Description=noir vault autosave — commit uncommitted capture
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'cd %h/Data/personal/notes && git add -A && { git diff --cached --quiet || git commit -qm "autosave $(date +%%F\\ %%H:%%M)"; }'

@@ -1,0 +1,6 @@
+[Unit]
+Description=noir morning brief — seed today's journal
+
+[Service]
+Type=oneshot
+ExecStart=%h/.bin/brief.sh morning

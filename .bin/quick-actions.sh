@@ -10,6 +10,7 @@ choice=$(printf '%s\n' \
     "󰹑  screenshot region → file" \
     "󰍹  screenshot screen → file" \
     "󰸉  next wallpaper" \
+    "󰍹  toggle wallpaper hud" \
     "󰌵  toggle bluelight" \
     "󰂛  toggle do-not-disturb" \
     "  work engine" \
@@ -32,6 +33,7 @@ case "${choice:-}" in
     *"region → file"*)      sleep 0.2; f="$SHOTDIR/$(date +%Y%m%d_%H%M%S).png"; grim -g "$(slurp)" "$f" && notify-send -e -t 2000 "󰹑  screenshot" "saved $(basename "$f")" ;;
     *"screen → file"*)      sleep 0.2; f="$SHOTDIR/$(date +%Y%m%d_%H%M%S).png"; grim "$f" && notify-send -e -t 2000 "󰍹  screenshot" "saved $(basename "$f")" ;;
     *"next wallpaper"*)     ~/.bin/wallpaper.sh next ;;
+    *"toggle wallpaper hud"*) ~/.bin/hud.sh toggle ;;
     *"bluelight"*)          ~/.bin/bluelight_mode.sh ;;
     *"do-not-disturb"*)     swaync-client -d ;;
     *"work engine"*)        ~/.bin/work.sh ;;

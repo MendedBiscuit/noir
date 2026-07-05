@@ -1,0 +1,6 @@
+[Unit]
+Description=noir sunday sweep — weekly agent pass over the vault
+
+[Service]
+Type=oneshot
+ExecStart=%h/.bin/sweep.sh

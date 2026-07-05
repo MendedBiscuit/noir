@@ -1,0 +1,9 @@
+[Unit]
+Description=morning brief at 06:30 (catches up after wake)
+
+[Timer]
+OnCalendar=*-*-* 06:30
+Persistent=true
+
+[Install]
+WantedBy=timers.target

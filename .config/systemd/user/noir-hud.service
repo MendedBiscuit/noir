@@ -1,0 +1,6 @@
+[Unit]
+Description=noir hud — render the brief onto the wallpaper
+
+[Service]
+Type=oneshot
+ExecStart=%h/.bin/hud.sh render

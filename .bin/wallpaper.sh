@@ -15,7 +15,12 @@ current() {
 }
 
 apply() {
-    swaymsg "output * bg '$1' fill" >/dev/null
+    # the hud composites the brief onto the wall and applies it itself
+    if [ -x "$HOME/.bin/hud.sh" ] && "$HOME/.bin/hud.sh" enabled; then
+        "$HOME/.bin/hud.sh" render
+    else
+        swaymsg "output * bg '$1' fill" >/dev/null
+    fi
 }
 
 # wallpaper candidates (lock-screen blur excluded)
@@ -34,8 +39,8 @@ case "${1:-restore}" in
                 break
             fi
         done
+        echo "$next" > "$STATE"   # before apply — the hud reads the state file
         apply "$next"
-        echo "$next" > "$STATE"
         ;;
     *)
         echo "usage: wallpaper.sh restore|next" >&2
