@@ -12,7 +12,9 @@ if ! command -v logseq >/dev/null 2>&1; then
 fi
 
 # native wayland — the display runs at scale 2, xwayland would be blurry.
-# GTK_THEME + --force-dark-mode: electron can't see prefer-dark through the
-# portal on sway, so logseq's "system" theme resolves light without these.
+# GTK_THEME dark: electron can't see prefer-dark through the portal on sway,
+# so logseq's "system" theme would resolve light without it. do NOT add
+# --force-dark-mode — chromium auto-darkens the already-dark page and inverts
+# text/canvas colours into mush (the no-contrast graph bug).
 export GTK_THEME=Adwaita:dark
-exec logseq --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations --force-dark-mode "$@"
+exec logseq --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations "$@"

@@ -15,7 +15,9 @@ set $term alacritty
 set $menu wofi --show drun -i | xargs swaymsg exec --
 
 set $browser firefox
-set $files dolphin
+# kde platform theme → dolphin reads the BreezeDark kdeglobals (qt5ct in
+# /etc/environment would render it light)
+set $files env QT_QPA_PLATFORMTHEME=kde QT_STYLE_OVERRIDE= dolphin
 
 # ── appearance ───────────────────────────────────────────────
 
