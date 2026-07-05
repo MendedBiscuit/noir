@@ -26,7 +26,7 @@ this file is the operating manual.
 
 - `journals/YYYY_MM_DD.md` — the daily log. what happened, what was decided, TODOs
 - `pages/` — one topic per page. hubs: `uni`, `dlh`, `personal`. `contents.md` is the front door
-- `pages/inbox.md` — raw capture, sorted later. Super+N appends here from anywhere
+- `pages/inbox.md` — raw capture, sorted later. Super+T appends here from anywhere
 - page names are short slugs (`mhs`, `ntc`, `cbf`); properties (`key:: value`) at the top
 
 ## the contract

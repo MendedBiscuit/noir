@@ -90,7 +90,7 @@ bindsym $mod+Shift+v exec alacritty --class askclaude -e ~/.bin/local-ai.sh chat
 bindsym $mod+o exec ~/.bin/notes.sh
 
 # capture — one thought into the vault inbox
-bindsym $mod+n exec ~/.bin/capture.sh
+bindsym $mod+t exec ~/.bin/capture.sh
 
 # keybind cheatsheet
 bindsym $mod+slash exec ~/.bin/cheatsheet.sh
