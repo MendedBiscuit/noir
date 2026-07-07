@@ -1,0 +1,19 @@
+# 90-usb-wakeup.rules
+#
+# let USB input wake the system from s2idle (this AMD/ThinkPad platform has no
+# deep S3 — modern standby only). the Logitech keyboard (046d:c34b) sits on the
+# ThinkPad TB4 dock; its own remote-wakeup is armed, but the hubs and xHCI above
+# it default to disabled, so the wake never propagates. arm the whole chain:
+#   - every xHCI controller (PCI, xhci_hcd)
+#   - every USB hub in the path (root hub 1d6b:0002, dock hub 0bda:5411 — class 09)
+#   - the keyboard itself (belt and suspenders; resets to disabled on some replugs)
+#
+# supersedes the `sudo tee .../7-1/power/wakeup` line in the sway config, which
+# fails from an exec context (no tty). udevd applies these as root, no tty needed,
+# and re-applies on every add/replug.
+#
+# install:  sudo install -m0644 ~/.config/noir/90-usb-wakeup.rules /etc/udev/rules.d/
+
+ACTION=="add|change", SUBSYSTEM=="pci", DRIVER=="xhci_hcd", ATTR{power/wakeup}="enabled"
+ACTION=="add|change", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", ATTR{power/wakeup}="enabled"
+ACTION=="add|change", SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="c34b", ATTR{power/wakeup}="enabled"

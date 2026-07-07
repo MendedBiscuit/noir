@@ -39,7 +39,7 @@ exec swayidle -w \
          resume 'swaymsg "output * dpms on"' \
          timeout 610 'systemctl suspend' \
          before-sleep 'swaylock -f' \
-         after-resume 'swaymsg "output * dpms on"; pkill waybar; waybar & disown'
+         after-resume '/home/julian/.bin/noir-resume.sh'
 
 # force displays back on
 bindsym $mod+Shift+w output * dpms on
