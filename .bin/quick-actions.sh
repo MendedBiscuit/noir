@@ -5,33 +5,46 @@ set -u
 
 SHOTDIR="$HOME/pictures/screenshots"
 
-choice=$(printf '%s\n' \
-    "󰹑  screenshot region → clipboard" \
-    "󰹑  screenshot region → file" \
-    "󰍹  screenshot screen → file" \
-    "󰸉  next wallpaper" \
-    "󰍹  toggle wallpaper hud" \
-    "󰌵  toggle bluelight" \
-    "󰂛  toggle do-not-disturb" \
-    "  work engine" \
-    "󰓓  steam (gamemode + egpu-aware)" \
-    "󱜙  ask claude" \
-    "󰚩  noir — local ai agent (offline)" \
-    "󰭹  noir — local ai chat (fast)" \
-    "󰠮  notes (logseq)" \
-    "󰙏  capture thought → inbox" \
-    "󱜙  explain clipboard (AI)" \
-    "󰄨  system dashboard" \
-    "󰌌  keybind cheatsheet" \
-    "󰋗  noir manual" \
-    "󰑓  reload bar" \
-    "󰐥  power menu" \
-    | wofi --dmenu --prompt actions --width 420 --height 420 --cache-file /dev/null)
+opts=(
+    "󰹑  screenshot region → clipboard"
+    "󰹑  screenshot region → file"
+    "󰍹  screenshot screen → file"
+    "󰑊  record screen → video"
+    "󰑊  record region → video"
+    "󰸉  next wallpaper"
+    "󰍹  toggle wallpaper hud"
+    "󰌵  toggle bluelight"
+    "󰂛  toggle do-not-disturb"
+    "  work engine"
+    "󰓓  steam (gamemode + egpu-aware)"
+    "󱜙  ask claude"
+    "󰚩  noir — local ai agent (offline)"
+    "󰭹  noir — local ai chat (fast)"
+    "󰠮  notes (logseq)"
+    "󰙏  capture thought → inbox"
+    "󱜙  explain clipboard (AI)"
+    "󰄨  system dashboard"
+    "󰌌  keybind cheatsheet"
+    "󰋗  noir manual"
+    "󰑓  reload bar"
+    "󰐥  power menu"
+)
+
+# while a recording is running, surface a stop entry at the top of the menu
+if "$HOME/.bin/screenrec.sh" active; then
+    opts=("󰓛  stop recording" "${opts[@]}")
+fi
+
+choice=$(printf '%s\n' "${opts[@]}" \
+    | wofi --dmenu --prompt actions --width 420 --height 480 --cache-file /dev/null)
 
 case "${choice:-}" in
     *"region → clipboard"*) sleep 0.2; grim -g "$(slurp)" - | wl-copy && notify-send -e -t 2000 "󰹑  screenshot" "region copied to clipboard" ;;
     *"region → file"*)      sleep 0.2; f="$SHOTDIR/$(date +%Y%m%d_%H%M%S).png"; grim -g "$(slurp)" "$f" && notify-send -e -t 2000 "󰹑  screenshot" "saved $(basename "$f")" ;;
     *"screen → file"*)      sleep 0.2; f="$SHOTDIR/$(date +%Y%m%d_%H%M%S).png"; grim "$f" && notify-send -e -t 2000 "󰍹  screenshot" "saved $(basename "$f")" ;;
+    *"record screen → video"*) ~/.bin/screenrec.sh screen ;;
+    *"record region → video"*) ~/.bin/screenrec.sh region ;;
+    *"stop recording"*)     ~/.bin/screenrec.sh stop ;;
     *"next wallpaper"*)     ~/.bin/wallpaper.sh next ;;
     *"toggle wallpaper hud"*) ~/.bin/hud.sh toggle ;;
     *"bluelight"*)          ~/.bin/bluelight_mode.sh ;;
