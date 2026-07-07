@@ -1,27 +1,31 @@
 # generic
 output * bg #000000 solid_color
 
-# auto-disable laptop monitor if docked
-bindswitch --reload --locked lid:on output eDP-1 disable
-bindswitch --reload --locked lid:off output eDP-1 enable
-
-# notebook screen
+# notebook screen — set its mode first, THEN let the lid switch decide power.
+# the lid bindswitches must come AFTER this block: setting a mode implicitly
+# re-enables the panel, so on every reload this block would turn the laptop
+# screen back on (even with the lid shut) unless the lid rule runs last.
 output eDP-1 {
     mode 2880x1800
     scale 2.0
 }
 
+# auto-disable laptop monitor if docked (--reload re-applies current lid state)
+bindswitch --reload --locked lid:on output eDP-1 disable
+bindswitch --reload --locked lid:off output eDP-1 enable
+
+# the LG HDR WQHD (serial 408NTQD3Z828) double-enumerates: USB-C shows up as
+# DP-2, HDMI as HDMI-A-1. plugging both cables stacks two outputs at 0,0 and
+# splits workspaces across them -> "usb-c doesn't work" / weird ws switching.
+# prefer USB-C (DP-2); ignore the HDMI twin. to use HDMI-only instead, comment
+# out the disable line below (and unplug USB-C).
 output DP-2 {
-    mode 3440x1920
+    mode 3440x1440@100Hz
     scale 1.3
     pos 0 0
 }
 
-output HDMI-A-1 {
-    mode 2560x1600
-    scale 1.4
-    pos 0 0
-}
+output HDMI-A-1 disable
 
 output DP-8 {
     mode 3440x1920
