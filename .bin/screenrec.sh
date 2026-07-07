@@ -22,7 +22,11 @@ focused_output() {
 }
 
 start() {
-    local mode="$1" f args=()
+    if ! command -v wf-recorder >/dev/null 2>&1; then
+        notify-send -e -t 4000 "󰑊  recording" "wf-recorder not installed — run: sudo pacman -S wf-recorder"
+        exit 1
+    fi
+    local mode="$1" f args=() pid
     f="$VIDDIR/$(date +%Y%m%d_%H%M%S).mp4"
     if [ "$mode" = region ]; then
         local g; g=$(slurp 2>/dev/null) || exit 0        # slurp cancelled -> bail
@@ -32,9 +36,16 @@ start() {
         [ -n "$o" ] && args=(-o "$o")
     fi
     wf-recorder "${args[@]}" -f "$f" >/dev/null 2>&1 &
-    echo "$!" > "$STATE"
-    echo "$f"  > "$FILEREF"
-    notify-send -e -t 2500 "󰑊  recording" "started ($mode) — run again to stop"
+    pid=$!
+    sleep 0.4                                            # let it come up (or fail) before we claim success
+    if ! kill -0 "$pid" 2>/dev/null; then
+        rm -f "$f"
+        notify-send -e -t 4000 "󰑊  recording" "failed to start — nothing is recording"
+        exit 1
+    fi
+    echo "$pid" > "$STATE"
+    echo "$f"   > "$FILEREF"
+    notify-send -e -t 2500 "󰑊  recording" "started ($mode) — run again (or 'stop recording') to stop"
 }
 
 stop() {
