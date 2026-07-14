@@ -260,6 +260,9 @@ exec /usr/lib/polkit-kde-authentication-agent-1
 
 exec_always "pkill waybar; waybar & sleep 0.5 && bash ~/.bin/wallpaper.sh restore"
 
+# libadwaita (gtk4) apps read this, not gtk-4.0/settings.ini, to decide dark mode
+exec_always "gsettings set org.gnome.desktop.interface color-scheme prefer-dark"
+
 exec_always "echo enabled | sudo tee /sys/bus/usb/devices/7-1/power/wakeup"
 
 exec_always "sleep 2 && echo 'on' | sudo tee /sys/bus/thunderbolt/devices/0-0/power/control"
