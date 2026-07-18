@@ -15,6 +15,7 @@ opts=(
     "󰍹  toggle wallpaper hud"
     "󰌵  toggle bluelight"
     "󰂛  toggle do-not-disturb"
+    "󰍽  mouse sensitivity"
     "  work engine"
     "󰓓  steam (gamemode + egpu-aware)"
     "󱜙  ask claude"
@@ -49,6 +50,7 @@ case "${choice:-}" in
     *"toggle wallpaper hud"*) ~/.bin/hud.sh toggle ;;
     *"bluelight"*)          ~/.bin/bluelight_mode.sh ;;
     *"do-not-disturb"*)     swaync-client -d ;;
+    *"mouse sensitivity"*)  ~/.bin/mouse-sens.sh ;;
     *"work engine"*)        ~/.bin/work.sh ;;
     *"steam"*)              ~/.bin/game.sh & disown ;;
     *"ask claude"*)         alacritty --class askclaude -e "$HOME/.local/bin/claude" & disown ;;

@@ -1,0 +1,7 @@
+/* ── gtk4 · noir ──
+   the one color: sodium amber #e8a032 on grayscale/black.
+   recolors libadwaita's accent (zenity, any future gtk4 app) off default blue. */
+
+@define-color accent_color #e8a032;
+@define-color accent_bg_color #e8a032;
+@define-color accent_fg_color #000000;

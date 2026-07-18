@@ -40,3 +40,10 @@ output DP-9 {
     scale 1.4
     pos 0 0
 }
+
+# this machine's monitor (Dell U2715H)
+output DP-3 {
+    mode 2560x1440
+    scale 1.25
+    pos 0 0
+}
