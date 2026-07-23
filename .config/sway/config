@@ -77,6 +77,9 @@ bindsym $mod+i exec ~/.bin/sysdash.sh
 # work engine (projects: git / dvc / claude / mcp)
 bindsym $mod+d exec ~/.bin/work.sh
 
+# board — the wallpaper brief, lifted off the wall and made interactive
+bindsym $mod+p exec alacritty --class board -e ~/.bin/board.sh
+
 # claude, floating AI terminal
 bindsym $mod+c exec alacritty --class askclaude -e ~/.local/bin/claude
 
@@ -200,6 +203,7 @@ bindsym $mod+r mode "resize"
 
 for_window [app_id="sysdash"] floating enable, resize set 1100 720, move position center
 for_window [app_id="float-tui"] floating enable, resize set 900 620, move position center
+for_window [app_id="board"] floating enable, resize set 760 620, move position center
 for_window [app_id="askclaude"] floating enable, resize set 1050 740, move position center
 for_window [app_id="noir-manual"] floating enable, resize set 940 760, move position center
 for_window [app_id="blueman-manager"] floating enable

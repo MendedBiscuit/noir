@@ -22,6 +22,7 @@ opts=(
     "󰚩  noir — local ai agent (offline)"
     "󰭹  noir — local ai chat (fast)"
     "󰠮  notes (logseq)"
+    "󰃭  board — dates & tasks (interactive)"
     "󰙏  capture thought → inbox"
     "󱜙  explain clipboard (AI)"
     "󰄨  system dashboard"
@@ -57,6 +58,7 @@ case "${choice:-}" in
     *"local ai agent"*)     alacritty --class askclaude -e ~/.bin/local-ai.sh & disown ;;
     *"local ai chat"*)      alacritty --class askclaude -e ~/.bin/local-ai.sh chat & disown ;;
     *"notes"*)              ~/.bin/notes.sh & disown ;;
+    *"board"*)              alacritty --class board -e ~/.bin/board.sh & disown ;;
     *"capture thought"*)    ~/.bin/capture.sh & disown ;;
     *"explain clipboard"*)  alacritty --class float-tui --title "claude · clipboard" -e bash -c \
                                 "wl-paste | \"$HOME/.local/bin/claude\" -p 'Explain this concisely:' ; printf '\n\033[90m── done · any key ──\033[0m'; read -rsn1" & disown ;;

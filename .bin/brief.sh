@@ -5,8 +5,11 @@
 #   brief.sh morning   seed today's journal with due dates + carried TODOs
 #                      (no-op if today's journal already exists)
 #
-# key dates mirror pages/sem4.md (checked 2026-07-05) — the sunday sweep
-# keeps them honest.
+# key dates live in ~/.config/noir/key-dates.conf (one "YYYY-MM-DD|label" per
+# line) — shared with the interactive board (board.sh) so dates can be edited
+# without touching this script. the defaults below mirror pages/sem4.md
+# (checked 2026-07-05) and seed the conf on first run; the sunday sweep keeps
+# them honest.
 
 set -u
 export LC_ALL=C   # english dates regardless of system locale
@@ -15,14 +18,47 @@ VAULT="$HOME/Data/personal/notes"
 JOURNALS="$VAULT/journals"
 INBOX="$VAULT/pages/inbox.md"
 TODAY_FILE="$JOURNALS/$(date +%Y_%m_%d).md"
+DATES_CONF="${NOIR_DATES_CONF:-$HOME/.config/noir/key-dates.conf}"
 
-KEY_DATES=(
+DEFAULT_KEY_DATES=(
     "2026-07-27|teaching starts (sem 2)"
+    "2026-07-28|see liah"
     "2026-08-31|census date — last drop without fees"
     "2026-09-28|mid-sem break starts"
     "2026-10-25|teaching ends → swotvac"
     "2026-11-02|exam period starts"
 )
+
+seed_dates_conf() {   # write the defaults to the conf the first time only
+    [ -f "$DATES_CONF" ] && return 0
+    mkdir -p "$(dirname "$DATES_CONF")" || return 1
+    {
+        echo "# noir key dates — one per line:  YYYY-MM-DD|label"
+        echo "# read by the wallpaper HUD (brief.sh) and the board (board.sh)."
+        echo "# mirror of the term dates on pages/sem4.md; add personal dates freely."
+        printf '%s\n' "${DEFAULT_KEY_DATES[@]}"
+    } > "$DATES_CONF"
+}
+
+load_key_dates() {    # populate KEY_DATES from the conf, sorted chronologically
+    KEY_DATES=()
+    if [ -f "$DATES_CONF" ]; then
+        local raw
+        while IFS= read -r raw || [ -n "$raw" ]; do
+            raw="${raw%%#*}"                              # drop comments
+            raw="${raw#"${raw%%[![:space:]]*}"}"          # ltrim
+            raw="${raw%"${raw##*[![:space:]]}"}"          # rtrim
+            [ -z "$raw" ] && continue
+            case "$raw" in *"|"*) KEY_DATES+=("$raw");; esac
+        done < "$DATES_CONF"
+    fi
+    [ "${#KEY_DATES[@]}" -eq 0 ] && KEY_DATES=("${DEFAULT_KEY_DATES[@]}")
+    # ISO dates sort lexically = chronologically, so "next N" is the soonest N
+    mapfile -t KEY_DATES < <(printf '%s\n' "${KEY_DATES[@]}" | sort)
+}
+
+seed_dates_conf
+load_key_dates
 
 # ---- pieces -----------------------------------------------------------------
 
@@ -53,7 +89,10 @@ inbox_count() {
 }
 
 # ---- commands ---------------------------------------------------------------
+# only dispatch when run directly — board.sh sources this file for its data
+# layer (KEY_DATES + the helpers above) and does its own thing.
 
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
 case "${1:-text}" in
 text)
     date +'%A %-d %B'
@@ -95,3 +134,4 @@ morning)
 *)
     echo "usage: brief.sh text|morning" >&2; exit 1 ;;
 esac
+fi
